@@ -1,0 +1,35 @@
+<MKM version="2.0" imageFileUrl="file:///Users/changwei/project/zhihu-news-at/_static/Screenshot_2019-05-14-01-44-23-409_com.zhihu.dail.png">
+  <Marks>
+    <LengthMark direction="3" color="16711680" length="143" x="355" y="51"/>
+    <LengthMark direction="3" color="16711680" length="52" x="214" y="51"/>
+    <LengthMark direction="3" color="16711680" length="50" x="221" y="144"/>
+    <LengthMark direction="3" color="16711680" length="675" x="17" y="194"/>
+    <LengthMark direction="3" color="16711680" length="484" x="126" y="194"/>
+    <LengthMark direction="3" color="16711680" length="74" x="167" y="795"/>
+    <LengthMark direction="3" color="16711680" length="26" x="536" y="843"/>
+    <LengthMark direction="3" color="16711680" length="14" x="560" y="828"/>
+    <LengthMark direction="3" color="16711680" length="32" x="500" y="795"/>
+    <LengthMark direction="3" color="16711680" length="131" x="814" y="869"/>
+    <LengthMark direction="3" color="16711680" length="46" x="59" y="869"/>
+    <LengthMark direction="3" color="16711680" length="251" x="723" y="1001"/>
+    <LengthMark direction="3" color="16711680" length="31" x="901" y="1001"/>
+    <LengthMark direction="3" color="16711680" length="184" x="1008" y="1032"/>
+    <LengthMark direction="12" color="16711680" length="41" x="1019" y="1110"/>
+    <LengthMark direction="12" color="16711680" length="18" x="1062" y="1092"/>
+    <LengthMark direction="3" color="16711680" length="15" x="933" y="1256"/>
+    <LengthMark direction="3" color="16711680" length="36" x="858" y="1216"/>
+    <LengthMark direction="3" color="16711680" length="164" x="426" y="1088"/>
+    <LengthMark direction="3" color="16711680" length="43" x="84" y="1001"/>
+    <LengthMark direction="3" color="16711680" length="43" x="123" y="1043"/>
+    <LengthMark direction="3" color="16711680" length="48" x="953" y="1440"/>
+    <LengthMark direction="3" color="16711680" length="26" x="996" y="1451"/>
+    <ColorMark defaultDirection="9" colorSystem="hex" direction="9" color="16711680" targetColor="16777215" offsetX="25" offsetY="10" x="511" y="833"/>
+    <ColorMark defaultDirection="9" colorSystem="hex" direction="9" color="16711680" targetColor="8947848" offsetX="25" offsetY="10" x="582" y="840"/>
+    <ColorMark defaultDirection="9" colorSystem="hex" direction="9" color="16711680" targetColor="15987699" offsetX="25" offsetY="10" x="593" y="917"/>
+    <ColorMark defaultDirection="9" colorSystem="hex" direction="9" color="16711680" targetColor="8947848" offsetX="25" offsetY="10" x="179" y="925"/>
+    <ColorMark defaultDirection="9" colorSystem="hex" direction="9" color="16711680" targetColor="7829367" offsetX="25" offsetY="10" x="254" y="1047"/>
+    <ColorMark defaultDirection="9" colorSystem="hex" direction="9" color="16711680" targetColor="16777215" offsetX="25" offsetY="10" x="921" y="688"/>
+    <ColorMark defaultDirection="9" colorSystem="hex" direction="9" color="16711680" targetColor="41709" offsetX="25" offsetY="10" x="716" y="130"/>
+    <ColorMark defaultDirection="9" colorSystem="hex" direction="9" color="16711680" targetColor="16777215" offsetX="25" offsetY="10" x="220" y="123"/>
+  </Marks>
+</MKM>
