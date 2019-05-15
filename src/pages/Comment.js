@@ -16,6 +16,8 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import Badge from '@material-ui/core/Badge';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
 
 export default
 function Comment() {
@@ -84,6 +86,7 @@ function CommentList(props) {
   return (
     <div className="comment-list-warp">
       <CommentItem
+        id={1}
         avatar={"#"}
         nickname={"昌维"}
         content={"哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈"}
@@ -91,6 +94,7 @@ function CommentList(props) {
         datetime={"2019-05-15 00:11:31"}
       />
       <CommentItem
+        id={1}
         avatar={"#"}
         nickname={"昌维"}
         content={"哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈"}
@@ -98,6 +102,39 @@ function CommentList(props) {
         datetime={"2019-05-15 00:11:31"}
       />
       <CommentItem
+        id={1}
+        avatar={"#"}
+        nickname={"昌维"}
+        content={"哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈"}
+        vote={6}
+        datetime={"2019-05-15 00:11:31"}
+      />
+      <CommentItem
+        id={1}
+        avatar={"#"}
+        nickname={"昌维"}
+        content={"哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈"}
+        vote={6}
+        datetime={"2019-05-15 00:11:31"}
+      />
+      <CommentItem
+        id={1}
+        avatar={"#"}
+        nickname={"昌维"}
+        content={"哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈"}
+        vote={6}
+        datetime={"2019-05-15 00:11:31"}
+      />
+      <CommentItem
+        id={1}
+        avatar={"#"}
+        nickname={"昌维"}
+        content={"哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈"}
+        vote={6}
+        datetime={"2019-05-15 00:11:31"}
+      />
+      <CommentItem
+        id={1}
         avatar={"#"}
         nickname={"昌维"}
         content={"哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈"}
@@ -108,33 +145,57 @@ function CommentList(props) {
   )
 }
 
-function CommentItem(props) {
-  return (
-    <div className="comment-item-warp">
-      <div className="avatar-warp">
-        <div className="avatar-img">
-          <img src={props.avatar} alt=""/>
-        </div>
-      </div>
-      <div className="content-warp">
-        <div className="comment-header-warp">
-          <div className="comment-nickname">
-            {props.nickname}
+class CommentItem extends Component {
+  constructor(props) {
+    super(props)
+    // 为了在回调中使用 `this`，这个绑定是必不可少的
+    this.handleClick = this.handleClick.bind(this);
+  }
+  handleClick() {
+
+  }
+  state = {
+    menuState: false,
+  };
+  handleClose = () => {
+    this.setState({ anchorEl: null });
+  };
+  render() {
+    return (
+      //<ButtonBase
+      //  focusRipple
+      //  key={this.props.id}
+      //  className={"comment-item-warp"}
+      //  focusVisibleClassName={""}
+      //  onClick={this.handleClick}
+      //>
+        <div className="comment-item-warp">
+          <div className="avatar-warp">
+            <div className="avatar-img">
+              <img src={this.props.avatar} alt=""/>
+            </div>
           </div>
-          <div className="comment-vote">
-            <i className="material-icons">
-              thumb_up_alt
-            </i>
-            {props.vote}
+          <div className="content-warp">
+            <div className="comment-header-warp">
+              <div className="comment-nickname">
+                {this.props.nickname}
+              </div>
+              <div className="comment-vote">
+                <i className="material-icons">
+                  thumb_up_alt
+                </i>
+                {this.props.vote}
+              </div>
+            </div>
+            <div className="comment-content">
+              {this.props.content}
+            </div>
+            <div className="comment-datetime">
+              {this.props.datetime}
+            </div>
           </div>
         </div>
-        <div className="comment-content">
-          {props.content}
-        </div>
-        <div className="comment-datetime">
-          {props.datetime}
-        </div>
-      </div>
-    </div>
-  )
+      //</ButtonBase>
+    )
+  }
 }

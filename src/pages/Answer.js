@@ -18,18 +18,6 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import {QuestionAnswerIcon} from '@material-ui/icons';
 
-const styles = {
-  root: {
-    // flexGrow: 1,
-  },
-  grow: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20,
-  },
-};
 
 export default
 function Answer() {
@@ -90,11 +78,13 @@ class Header extends Component {
               <i className="material-icons">
                 comment
               </i>
+              <div className="icon-num">123</div>
             </IconButton>
             <IconButton className="header-more-btn" color="inherit">
               <i className="material-icons">
                 thumb_up_alt
               </i>
+              <div className="icon-num">456</div>
             </IconButton>
           </Toolbar>
         </AppBar>
