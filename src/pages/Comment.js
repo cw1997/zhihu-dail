@@ -20,19 +20,72 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 
 export default
-function Comment() {
-  return (
-    <div className="comment-warp">
-      <HeaderWithRouter />
-      <ListTitle>36 条短评</ListTitle>
-      <CommentList />
-    </div>
-  )
+class Comment extends Component {
+  id = this.props.match.params.id;
+  // todayUrl = 'https://news-at.zhihu.com/api/4/story/8997528/long-comments'
+  longCommentsUrl = 'http://127.0.0.1:9999/api/4/story/' + this.id + '/long-comments';
+  shortCommentsUrl = 'http://127.0.0.1:9999/api/4/story/' + this.id + '/short-comments';
+  constructor(props) {
+    super(props);
+    this.state = {
+      error: null,
+      isLoaded: false,
+      shortComments: [],
+      longComments: [],
+    };
+  }
+  componentDidMount() {
+    fetch(this.longCommentsUrl)
+      .then(res => res.json())
+      .then(
+        (result) => {
+          console.info(result);
+          this.setState({
+            isLoaded: true,
+            longComments: result.comments
+          });
+        },
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error
+          });
+        }
+      );
+    fetch(this.shortCommentsUrl)
+      .then(res => res.json())
+      .then(
+        (result) => {
+          console.info(result);
+          this.setState({
+            isLoaded: true,
+            shortComments: result.comments
+          });
+        },
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error
+          });
+        }
+      )
+  }
+  render() {
+    return (
+      <div className="comment-warp">
+        <HeaderWithRouter data={this.state} />
+        <ListTitle>{this.state.shortComments.length} 条短评</ListTitle>
+        <CommentList data={this.state.shortComments} />
+        <ListTitle>{this.state.longComments.length} 条长评</ListTitle>
+        <CommentList data={this.state.longComments} />
+      </div>
+    )
+  }
 }
 
 class Header extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     // 为了在回调中使用 `this`，这个绑定是必不可少的
     this.handlePush = this.handlePush.bind(this);
   }
@@ -51,7 +104,7 @@ class Header extends Component {
               </i>
             </IconButton>
             <Typography variant="h4" color="inherit" className="header-menu-title">
-              27 条点评
+              {this.props.data.longComments.length + this.props.data.shortComments.length} 条点评
             </Typography>
             {/*<Button color="inherit">Login</Button>*/}
             <div className="grow"/>
@@ -83,64 +136,28 @@ function ListTitle(props) {
 }
 
 function CommentList(props) {
+  console.log(props);
+  const lists = props.data.map(item => (
+    <CommentItem
+      id={item.id}
+      avatar={item.avatar}
+      nickname={item.author}
+      content={item.content}
+      vote={item.likes}
+      datetime={item.time}
+    />
+  ));
+  // let lists;
+  // if (props.data) {
+  //
+  // } else {
+  //   lists = (
+  //     <div>无评论</div>
+  //   )
+  // }
   return (
     <div className="comment-list-warp">
-      <CommentItem
-        id={1}
-        avatar={"#"}
-        nickname={"昌维"}
-        content={"哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈"}
-        vote={6}
-        datetime={"2019-05-15 00:11:31"}
-      />
-      <CommentItem
-        id={1}
-        avatar={"#"}
-        nickname={"昌维"}
-        content={"哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈"}
-        vote={6}
-        datetime={"2019-05-15 00:11:31"}
-      />
-      <CommentItem
-        id={1}
-        avatar={"#"}
-        nickname={"昌维"}
-        content={"哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈"}
-        vote={6}
-        datetime={"2019-05-15 00:11:31"}
-      />
-      <CommentItem
-        id={1}
-        avatar={"#"}
-        nickname={"昌维"}
-        content={"哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈"}
-        vote={6}
-        datetime={"2019-05-15 00:11:31"}
-      />
-      <CommentItem
-        id={1}
-        avatar={"#"}
-        nickname={"昌维"}
-        content={"哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈"}
-        vote={6}
-        datetime={"2019-05-15 00:11:31"}
-      />
-      <CommentItem
-        id={1}
-        avatar={"#"}
-        nickname={"昌维"}
-        content={"哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈"}
-        vote={6}
-        datetime={"2019-05-15 00:11:31"}
-      />
-      <CommentItem
-        id={1}
-        avatar={"#"}
-        nickname={"昌维"}
-        content={"哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈"}
-        vote={6}
-        datetime={"2019-05-15 00:11:31"}
-      />
+      {lists}
     </div>
   )
 }
