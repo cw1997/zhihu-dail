@@ -21,9 +21,10 @@ import {QuestionAnswerIcon} from '@material-ui/icons';
 
 export default
 class Answer extends Component {
+  id = this.props.match.params.id;
   // todayUrl = 'https://news-at.zhihu.com/api/4/news/:id' // id:3892357
-  contentUrl = 'http://127.0.0.1:9999/api/4/news/' + this.props.match.params.id;
-  extraUrl = 'http://127.0.0.1:9999/api/4/story-extra/' + this.props.match.params.id;
+  contentUrl = 'http://127.0.0.1:9999/api/4/news/' + this.id;
+  extraUrl = 'http://127.0.0.1:9999/api/4/story-extra/' + this.id;
   constructor(props) {
     super(props);
     // console.info(this.props, this.contentUrl, this.extraUrl);
@@ -91,6 +92,7 @@ class Header extends Component {
     this.handlePush = this.handlePush.bind(this);
   }
   handlePush(targetUrl) {
+    console.log(this.props);
     this.props.history.push(targetUrl)
   }
   render() {
@@ -127,7 +129,7 @@ class Header extends Component {
                 star_border
               </i>
             </IconButton>
-            <IconButton className="header-more-btn" onClick={(e) => this.handlePush('/comment', e)}  color="inherit">
+            <IconButton className="header-more-btn" onClick={(e) => this.handlePush(this.props.match.url+'/comments', e)}  color="inherit">
               {/*<QuestionAnswerIcon />62*/}
               <i className="material-icons">
                 comment
