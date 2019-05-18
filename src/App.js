@@ -46,8 +46,8 @@ function App() {
         <div className="App">
           <Switch>
             <Route path="/" exact component={Home} />
-            <Route path="/answer/:id" component={Answer} />
-            <Route path="/comment" component={Comment} />
+            <Route path="/answer/:id" exact component={Answer} />
+            <Route path="/answer/:id/comments" exact component={Comment} />
             {/*<Home/>*/}
             {/*<Answer/>*/}
           </Switch>
