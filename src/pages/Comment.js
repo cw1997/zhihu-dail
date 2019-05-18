@@ -73,7 +73,7 @@ class Comment extends Component {
   render() {
     return (
       <div className="comment-warp">
-        <HeaderWithRouter data={this.state} />
+        <HeaderWithRouter id={this.id} data={this.state} />
         <ListTitle>{this.state.shortComments.length} 条短评</ListTitle>
         <CommentList data={this.state.shortComments} />
         <ListTitle>{this.state.longComments.length} 条长评</ListTitle>
@@ -97,7 +97,7 @@ class Header extends Component {
       <div className="header-warp">
         <AppBar position="static">
           <Toolbar className="nav-bar">
-            <IconButton className="header-menu-btn" onClick={(e) => this.handlePush('/answer', e)} color="inherit" aria-label="Menu">
+            <IconButton className="header-menu-btn" onClick={(e) => this.handlePush('/answer/'+this.props.id, e)} color="inherit" aria-label="Menu">
               {/*<MenuIcon />*/}
               <i className="material-icons">
                 arrow_back
