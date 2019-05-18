@@ -20,19 +20,76 @@ import {QuestionAnswerIcon} from '@material-ui/icons';
 
 
 export default
-function Answer() {
-  return (
-    <div className="answer-warp">
-      <HeaderWithRouter />
-      <Banner />
-      <Content>test</Content>
-    </div>
-  )
+class Answer extends Component {
+  // todayUrl = 'https://news-at.zhihu.com/api/4/news/:id' // id:3892357
+  contentUrl = 'http://127.0.0.1:9999/api/4/news/' + this.props.match.params.id;
+  extraUrl = 'http://127.0.0.1:9999/api/4/story-extra/' + this.props.match.params.id;
+  constructor(props) {
+    super(props);
+    // console.info(this.props, this.contentUrl, this.extraUrl);
+    this.state = {
+      error: null,
+      isLoaded: false,
+      extra: {},
+      content: {},
+    };
+  }
+  replaceUrl = (srcUrl) => {
+    return srcUrl.replace(/http\w{0,1}:\/\/p/g, 'https://images.weserv.nl/?url=p')
+  }
+  componentDidMount() {
+    fetch(this.contentUrl)
+    // .then(res => JSON.parse(this.replaceUrl(JSON.stringify(res.json()))))
+      .then(res => res.json())
+      .then(
+        (result) => {
+          console.info(result);
+          this.setState({
+            isLoaded: true,
+            content: result
+          });
+        },
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error
+          });
+        }
+      )
+    fetch(this.extraUrl)
+    // .then(res => JSON.parse(this.replaceUrl(JSON.stringify(res.json()))))
+      .then(res => res.json())
+      .then(
+        (result) => {
+          console.info(result);
+          this.setState({
+            isLoaded: true,
+            extra: result
+          });
+        },
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error
+          });
+        }
+      )
+  }
+  render() {
+    return (
+      <div className="answer-warp">
+        <link rel="stylesheet" type="text/css" href={this.state.content.css} />
+        <HeaderWithRouter data={this.state.extra} />
+        <Banner data={this.state.content} />
+        <Content>{this.state.content.body}</Content>
+      </div>
+    )
+  }
 }
 
 class Header extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     // 为了在回调中使用 `this`，这个绑定是必不可少的
     this.handlePush = this.handlePush.bind(this);
   }
@@ -78,13 +135,13 @@ class Header extends Component {
               <i className="material-icons">
                 comment
               </i>
-              <div className="icon-num">123</div>
+              <div className="icon-num">{this.props.data.comments}</div>
             </IconButton>
             <IconButton className="header-more-btn" color="inherit">
               <i className="material-icons">
                 thumb_up_alt
               </i>
-              <div className="icon-num">456</div>
+              <div className="icon-num">{this.props.data.popularity}</div>
             </IconButton>
           </Toolbar>
         </AppBar>
@@ -94,36 +151,39 @@ class Header extends Component {
 }
 const HeaderWithRouter = withRouter(Header)
 
-function Banner() {
+function Banner(props) {
   return (
     <div className="banner-warp">
       <div className="banner-list">
-        <BannerItem title={"也许，不是所有女性都适合做母亲，也不是所有女性都应当做母亲"} />
+        {/*<BannerItem title={"也许，不是所有女性都适合做母亲，也不是所有女性都应当做母亲"} />*/}
+        <BannerItem title={props.data.title} img={props.data.image} />
       </div>
       <div className="image-source">
-        Yestone.com 版权图片库
+        {props.data.image_source}
       </div>
     </div>
   )
 }
 
-class BannerItem extends Component {
-  render() {
-    return (
-      <div className="banner-item-warp">
-        <div className="banner-item-title">
-          {this.props.title}
-        </div>
+function BannerItem(props) {
+  return (
+    <div className="banner-item-warp">
+      <div className="banner-item-img">
+        <img src={props.img} alt=""/>
       </div>
-    )
-  }
+      <div className="banner-item-title">
+        {props.title}
+      </div>
+    </div>
+  )
 }
 
+
 class Content extends Component {
+  createMarkup (props) { return {__html: props}; }
   render() {
     return (
-      <div className="content-warp">
-        {this.props.children}
+      <div className="content-warp" style={{fontSize: '150%'}} dangerouslySetInnerHTML={this.createMarkup(this.props.children)}>
       </div>
     )
   }
