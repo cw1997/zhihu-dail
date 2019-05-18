@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import { withRouter, BrowserRouter, Route, Link, Switch } from 'react-router-dom'
+import classNames from 'classnames'
+
 import './Answer.sass';
 
-import classNames from 'classnames'
+import config from '../config'
 
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -23,8 +25,8 @@ export default
 class Answer extends Component {
   id = this.props.match.params.id;
   // todayUrl = 'https://news-at.zhihu.com/api/4/news/:id' // id:3892357
-  contentUrl = 'http://127.0.0.1:9999/api/4/news/' + this.id;
-  extraUrl = 'http://127.0.0.1:9999/api/4/story-extra/' + this.id;
+  contentUrl = config.baseUrl + '/api/4/news/' + this.id;
+  extraUrl = config.baseUrl + '/api/4/story-extra/' + this.id;
   constructor(props) {
     super(props);
     // console.info(this.props, this.contentUrl, this.extraUrl);

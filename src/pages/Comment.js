@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import { withRouter, BrowserRouter, Route, Link, Switch } from 'react-router-dom'
+import classNames from 'classnames'
+
 import './Comment.sass';
 
-import classNames from 'classnames'
+import config from '../config'
 
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -23,8 +25,8 @@ export default
 class Comment extends Component {
   id = this.props.match.params.id;
   // todayUrl = 'https://news-at.zhihu.com/api/4/story/8997528/long-comments'
-  longCommentsUrl = 'http://127.0.0.1:9999/api/4/story/' + this.id + '/long-comments';
-  shortCommentsUrl = 'http://127.0.0.1:9999/api/4/story/' + this.id + '/short-comments';
+  longCommentsUrl = config.baseUrl + '/api/4/story/' + this.id + '/long-comments';
+  shortCommentsUrl = config.baseUrl + '/api/4/story/' + this.id + '/short-comments';
   constructor(props) {
     super(props);
     this.state = {

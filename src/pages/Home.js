@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import { withRouter, BrowserRouter, Route, Link, Switch } from 'react-router-dom'
+import classNames from 'classnames'
 
 import './Home.sass';
 
-import classNames from 'classnames'
+import config from '../config'
 
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -31,7 +32,7 @@ import Menu from "@material-ui/core/Menu/Menu";
 export default
 class Home extends Component {
   // todayUrl = 'https://news-at.zhihu.com/api/4/news/latest'
-  todayUrl = 'http://127.0.0.1:9999/api/4/news/latest'
+  todayUrl = config.baseUrl + '/api/4/news/latest';
   constructor(props) {
     super(props);
     this.state = {
