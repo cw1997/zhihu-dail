@@ -29,14 +29,56 @@ import Menu from "@material-ui/core/Menu/Menu";
 
 
 export default
-function Home() {
-  return (
-    <div className="home-warp">
-      <Header />
-      <Banner />
-      <NewsList />
-    </div>
-  )
+class Home extends Component {
+  // todayUrl = 'https://news-at.zhihu.com/api/4/news/latest'
+  todayUrl = 'http://127.0.0.1:9999/api/4/news/latest'
+  constructor(props) {
+    super(props);
+    this.state = {
+      error: null,
+      isLoaded: false,
+      data: {
+        date: '', // 20140523
+        stories: [], // date: pic, title, link
+        top_stories: [], // date: pic, title, link
+      }
+    };
+  }
+  replaceUrl = (srcUrl) => {
+    return srcUrl.replace(/http\w{0,1}:\/\/p/g, 'https://images.weserv.nl/?url=p')
+  }
+  componentDidMount() {
+    fetch(this.todayUrl)
+      // .then(res => JSON.parse(this.replaceUrl(JSON.stringify(res.json()))))
+      .then(res => res.json())
+      .then(
+        (result) => {
+          console.info(result);
+          this.setState({
+            isLoaded: true,
+            data: result
+          });
+        },
+        // 注意：需要在此处处理错误
+        // 而不是使用 catch() 去捕获错误
+        // 因为使用 catch 去捕获异常会掩盖掉组件本身可能产生的 bug
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error
+          });
+        }
+      )
+  }
+  render() {
+    return (
+      <div className="home-warp">
+        <Header/>
+        <Banner data={this.state.data} />
+        <NewsList data={this.state.data} />
+      </div>
+    )
+  }
 }
 
 
@@ -133,15 +175,17 @@ class Header extends Component {
   }
 }
 
-function Banner() {
+function Banner(props) {
+  const top_stories = props.data.top_stories.map(
+    item => (
+      <BannerItem img={item.img} title={item.title} />
+    )
+  );
   return (
     <div className="banner-warp">
       <div className="banner-list">
         <BannerItem title={"也许，不是所有女性都适合做母亲，也不是所有女性都应当做母亲"} />
-        {/*<BannerItem title={"也许，不是所有女性都适合做母亲，也不是所有女性都应当做母亲"} />*/}
-        {/*<BannerItem title={"也许，不是所有女性都适合做母亲，也不是所有女性都应当做母亲"} />*/}
-        {/*<BannerItem title={"也许，不是所有女性都适合做母亲，也不是所有女性都应当做母亲"} />*/}
-        {/*<BannerItem title={"也许，不是所有女性都适合做母亲，也不是所有女性都应当做母亲"} />*/}
+        {/*{top_stories}*/}
       </div>
       <div className="banner-dot">
         <BannerDot />
@@ -163,42 +207,47 @@ class BannerDot extends Component {
   }
 }
 
-class BannerItem extends Component {
-  render() {
-    return (
-      <div className="banner-item-warp">
-        <div className="banner-item-title">
-          {this.props.title}
-        </div>
+function BannerItem(props) {
+  return (
+    <div className="banner-item-warp">
+      <div className="banner-item-img">
+        <img src={props.image} alt=""/>
       </div>
-    )
-  }
+      <div className="banner-item-title">
+        {props.title}
+      </div>
+    </div>
+  )
 }
 
-class NewsList extends Component {
-  render() {
-    return (
-      <div className="news-list-warp">
-        <div className="news-list-label">
-          今日热闻
-        </div>
-        <div className="news-list">
-          <NewsItemWithRouter title={"小事·天上掉馅饼，但他接住了"} pic={"#"} />
-        </div>
-      </div>
+function NewsList(props) {
+  const stories = props.data.stories.map(
+    item => (
+      <NewsItemWithRouter id={item.id} title={item.title} img={item.images[0]} />
     )
-  }
+  );
+  return (
+    <div className="news-list-warp">
+      <div className="news-list-label">
+        今日热闻
+      </div>
+      <div className="news-list">
+        {/*<NewsItemWithRouter title={"小事·天上掉馅饼，但他接住了"} pic={"#"} />*/}
+        {stories}
+      </div>
+    </div>
+  )
 }
 
 class NewsItem extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     // 为了在回调中使用 `this`，这个绑定是必不可少的
     this.handleClick = this.handleClick.bind(this);
   }
-  handleClick() {
-    console.log(this.props)
-    this.props.history.push('/answer')
+  handleClick(id) {
+    // console.log(this.props)
+    this.props.history.push('/answer/' + id)
   }
   render() {
     return (
@@ -208,14 +257,14 @@ class NewsItem extends Component {
           key={this.props.title}
           className={"news-item-warp"}
           focusVisibleClassName={""}
-          onClick={this.handleClick}
+          onClick={(e) => this.handleClick(this.props.id, e)}
         >
           <div className="news-item-warp">
             <div className="news-item-title">
               {this.props.title}
             </div>
             <div className="news-item-pic">
-              <img className="news-item-img" src={this.props.pic} alt=""/>
+              <img className="news-item-img" src={this.props.img} alt=""/>
             </div>
           </div>
         </ButtonBase>
@@ -223,7 +272,7 @@ class NewsItem extends Component {
     )
   }
 }
-const NewsItemWithRouter = withRouter(NewsItem)
+const NewsItemWithRouter = withRouter(NewsItem);
 
 
 
