@@ -34,9 +34,6 @@ class Answer extends Component {
       content: {},
     };
   }
-  replaceUrl = (srcUrl) => {
-    return srcUrl.replace(/http\w{0,1}:\/\/p/g, 'https://images.weserv.nl/?url=p')
-  }
   componentDidMount() {
     fetch(this.contentUrl)
     // .then(res => JSON.parse(this.replaceUrl(JSON.stringify(res.json()))))
