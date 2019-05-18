@@ -10,15 +10,18 @@
       margin:
         left: 22px
       font:
-        size: 2rem
+        size: 20px
 
 .banner-warp
   height: 338px
 
+$banner-dot-width: (8px + 4px) * 5 - 4px
 .banner-dot
   display: flex
   position: relative
   bottom: 12px + 8px
+  width: $banner-dot-width
+  margin: 0 auto
 .banner-dot-warp
   margin:
     right: 4px
@@ -33,16 +36,20 @@
   background-color: #fff !important
 
 .banner-item-warp
-  background-color: #111
+  //background-color: #111
   height: 338px
+  .banner-item-img
+    position: relative
+    left: 0
+    top: 0
   .banner-item-title
     color: #fff
     padding:
       top: 240px
     margin: 0 21px
     font:
-      size: 2.6rem
-    line-height: 3.2rem
+      size: 26px
+    line-height: 32px
 
 .news-list-warp
   //height: 100%
@@ -55,7 +62,7 @@
       top: 22px
       left: 22px
     font:
-      size: 1.8rem
+      size: 18px
     color: #888
   .news-list
     padding: 0 20px
@@ -63,6 +70,7 @@
 .news-item-warp
   display: flex
   justify-content: space-between
+  text-align: left
   background-color: #fff
   box-shadow: 2px 2px 4px 0px #ddd
   width: 100%
@@ -70,14 +78,21 @@
   border:
     radius: 4px
   padding: 18px 20px
+  margin:
+    bottom: 20px !important
   .news-item-title
     color: #000
     font:
-      size: 2rem
+      size: 20px
   .news-item-pic
     width: 106px
     height: 92px
     background-color: #ccc
+    img
+      width: 106px
+      height: 92px
+      //overflow: hidden
+
 
 
 
