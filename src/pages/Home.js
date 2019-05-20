@@ -28,6 +28,7 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import Menu from "@material-ui/core/Menu/Menu";
 
+import { Carousel } from 'antd';
 
 export default
 class Home extends Component {
@@ -177,49 +178,64 @@ class Header extends Component {
 }
 
 function Banner(props) {
-  const top_stories = props.data.top_stories.map(
-    item => (
-      <BannerItem img={item.img} title={item.title} />
-    )
-  );
+  console.log(props);
+  const top_stories = props.data.top_stories.map(item => <BannerItemWithRouter id={item.id} image={item.image} title={item.title} />);
   return (
     <div className="banner-warp">
-      <div className="banner-list">
-        <BannerItem title={"也许，不是所有女性都适合做母亲，也不是所有女性都应当做母亲"} />
-        {/*{top_stories}*/}
-      </div>
-      <div className="banner-dot">
-        <BannerDot />
-        <BannerDot selected={true} />
-        <BannerDot />
-        <BannerDot />
-        <BannerDot />
-      </div>
+      <Carousel autoplay>
+      {/*<Carousel>*/}
+        {top_stories}
+      </Carousel>
+      {/*<div className="banner-list">*/}
+        {/*<BannerItem image={'https://cdn.nlark.com/yuque/0/2019/png/215718/1558057620354-c663b83c-0e16-4fa5-96c9-5e147b393aab.png?x-oss-process=image/resize,m_fill,h_268,w_392'} title={"也许，不是所有女性都适合做母亲，也不是所有女性都应当做母亲"} />*/}
+        {/*<BannerItem image={'https://cdn.nlark.com/yuque/0/2019/png/215718/1558057620354-c663b83c-0e16-4fa5-96c9-5e147b393aab.png?x-oss-process=image/resize,m_fill,h_268,w_392'} title={"也许，不是所有女性都适合做母亲，也不是所有女性都应当做母亲"} />*/}
+      {/*</div>*/}
+      {/*<div className="banner-dot">*/}
+        {/*<BannerDot />*/}
+        {/*<BannerDot selected={true} />*/}
+        {/*<BannerDot />*/}
+        {/*<BannerDot />*/}
+        {/*<BannerDot />*/}
+      {/*</div>*/}
     </div>
   )
 }
 
-class BannerDot extends Component {
+// class BannerDot extends Component {
+//   render() {
+//     return (
+//       <div className={classNames({'banner-dot-warp': true, 'banner-dot-selected': this.props.selected})}>
+//       </div>
+//     )
+//   }
+// }
+
+class BannerItem extends Component {
+  constructor(props) {
+    super(props);
+    // 为了在回调中使用 `this`，这个绑定是必不可少的
+    this.handleClick = this.handleClick.bind(this);
+  }
+  handleClick(id) {
+    // console.log(this.props)
+    this.props.history.push('/answer/' + id)
+  }
   render() {
     return (
-      <div className={classNames({'banner-dot-warp': true, 'banner-dot-selected': this.props.selected})}>
+      <div className="banner-item-warp" onClick={(e) => this.handleClick(this.props.id, e)} >
+        <div className="banner-item-mask">
+        </div>
+        <div className="banner-item-img">
+          <img src={this.props.image} alt=""/>
+        </div>
+        <div className="banner-item-title">
+          {this.props.title}
+        </div>
       </div>
     )
   }
 }
-
-function BannerItem(props) {
-  return (
-    <div className="banner-item-warp">
-      <div className="banner-item-img">
-        <img src={props.image} alt=""/>
-      </div>
-      <div className="banner-item-title">
-        {props.title}
-      </div>
-    </div>
-  )
-}
+const BannerItemWithRouter = withRouter(BannerItem);
 
 function NewsList(props) {
   const stories = props.data.stories.map(

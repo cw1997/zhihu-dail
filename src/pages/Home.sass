@@ -13,7 +13,7 @@
         size: 20px
 
 .banner-warp
-  height: 338px
+  //height: 338px
 
 $banner-dot-width: (8px + 4px) * 5 - 4px
 .banner-dot
@@ -35,18 +35,41 @@ $banner-dot-width: (8px + 4px) * 5 - 4px
 .banner-dot-selected
   background-color: #fff !important
 
+.banner-item-mask
+  width: 540px
+  //max-width: 540px
+  height: 338px
+  position: absolute
+  z-index: 999
+  background: linear-gradient(rgba(255, 255, 255, 0), 80%, #000)
+
 .banner-item-warp
   //background-color: #111
+  width: 100%
   height: 338px
   .banner-item-img
-    position: relative
-    left: 0
-    top: 0
+    img
+      width: 100%
+      height: 338px
+    //position: relative
+    //left: 0
+    //top: 0
   .banner-item-title
+    z-index: 1000
+    //display: table-cell
+    //vertical-align: bottom
     color: #fff
-    padding:
-      top: 240px
-    margin: 0 21px
+    //max-width: 540px - 2 * 20px
+    width: calc(100vw - 2 * 20px)
+    //height: 64px
+    position: absolute
+    top: 240px
+    //bottom: 0px
+    //left: 20px
+    //padding:
+    //  top: 240px
+    //padding: 0 20px
+    margin: 0 20px
     font:
       size: 26px
     line-height: 32px

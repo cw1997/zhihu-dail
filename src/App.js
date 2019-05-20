@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Link, Switch } from 'react-router-dom'
 
 
 import './App.css';
+import 'antd/dist/antd.css';
 
 import Home from './pages/Home'
 import Answer from './pages/Answer'
